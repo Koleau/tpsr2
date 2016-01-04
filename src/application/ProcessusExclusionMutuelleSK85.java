@@ -30,7 +30,7 @@ public class ProcessusExclusionMutuelleSK85 extends ProcessusExclusionMutuelle {
 		this.enSC = false;
 		if (id == 1) {
 			this.aJeton = true;
-			this.jeton = new JetonSK85();
+			this.jeton = new JetonSK85(this.nbProcessus);
 		} else {
 			this.aJeton = false;
 		}
@@ -47,19 +47,16 @@ public class ProcessusExclusionMutuelleSK85 extends ProcessusExclusionMutuelle {
 	  @Override
 	  public void programme() throws InterruptedException {
 
-	    afficher("demarrage");
 
 	    afficher("demarrage "+this.getNom());
-
+	    
 	    for (int i = 0; i < NBDEMANDE; i++) {
-	    	afficher(getNom()+" demande de SC n: "+i);
 			randomSleep();
+			afficher(getNom()+" demande de SC n: "+i);
 			entrer();
 		}
 
 	    afficher("terminaison "+this.getNom());
-
-	    afficher("terminaison");
 
 	  }
 
@@ -75,9 +72,16 @@ public class ProcessusExclusionMutuelleSK85 extends ProcessusExclusionMutuelle {
 	   */
 	  protected synchronized void entrer() {
 	    this.dem ++;
+	    armerMinuteur(20000, "ERREUR DE VIVACITE");
 	    if (!this.aJeton) {
-	    	diffuser("Groupe", new Message(this.dem));
+	    	RequeteSK85 r = new RequeteSK85(id, dem);
+	    	diffuser("Groupe", new Message(r));
 	    	bloquer();
+	    } else {
+	    	addPEnSC();
+	    	afficher(getNom()+" est entre en SC");
+	    	randomSleep();
+	    	sortir();
 	    }
 	  }
 
@@ -89,6 +93,9 @@ public class ProcessusExclusionMutuelleSK85 extends ProcessusExclusionMutuelle {
 	   * 
 	   */
 	  protected synchronized void sortir() {
+		decrPEnSC();
+		desarmerMinuteur();
+		afficher(getNom()+" quitte la SC");
 	    this.enSC = false;
 	    ArrayList<Integer> tab = (ArrayList<Integer>)this.jeton.getTab();
 	    tab.set(this.id-1, this.dem);
@@ -101,9 +108,11 @@ public class ProcessusExclusionMutuelleSK85 extends ProcessusExclusionMutuelle {
 	    if (!this.jeton.getFa().isEmpty()) {
 	    	this.aJeton = false;
 	    	int suiv = this.jeton.getFirstFaAndRemove();
-	    	//TODO: Changer le jeton pour avoir des strings pour envoyer le message
-	    	envoyer(n, m);
+	    	RequeteSK85 r = new RequeteSK85(this.id, this.jeton);
+	    	envoyer("P"+suiv, new Message(r));
 	    }
+	    
+	    debloquer();
 	  }
 
 	  //
@@ -124,6 +133,7 @@ public class ProcessusExclusionMutuelleSK85 extends ProcessusExclusionMutuelle {
 	    	this.jeton = r.getJeton();
 	    	this.aJeton = true;
 	    	this.enSC = true;
+	    	afficher(getNom()+" est entre en SC");
 	    	randomSleep();
 	    	sortir();
 	    }

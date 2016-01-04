@@ -12,6 +12,7 @@ public class ProcessusExclusionMutuelle extends Calculateur {
   // ATTRIBUTS DE CLASSE
   //
   private static final Timer ordonnanceur = new Timer(true);
+  protected static int nbEnSC = 0;
 
   //
   // ATTRIBUTS D'OBJET
@@ -102,6 +103,17 @@ public class ProcessusExclusionMutuelle extends Calculateur {
    */
   protected final synchronized void debloquer() {
     notifyAll();
+  }
+  
+  protected final void addPEnSC() {
+	  ProcessusExclusionMutuelle.nbEnSC ++;
+	  if (ProcessusExclusionMutuelle.nbEnSC>1) {
+		  afficher("ERREUR DE SURETE");
+	  }
+  }
+  
+  protected final void decrPEnSC() {
+	  ProcessusExclusionMutuelle.nbEnSC --;
   }
 
   /**

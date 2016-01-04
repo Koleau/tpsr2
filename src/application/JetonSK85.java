@@ -1,12 +1,24 @@
 package application;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JetonSK85 {
+public class JetonSK85 implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 
 	private List<Integer> tab;
 	private List<Integer> fa;
+	
+	@Override
+	public String toString() {
+		return "JetonSK85 [tab=" + tab + ", fa=" + fa + "]";
+	}
 	
 	public JetonSK85(int size) {
 		this.fa = new ArrayList<Integer>();

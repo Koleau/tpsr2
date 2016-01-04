@@ -4,12 +4,23 @@ import java.io.Serializable;
 
 public class RequeteSK85 implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private final int idEmetteur;
 	private final boolean isJeton;
 	private JetonSK85 jeton;
 	private int dem;
 	
 	
+	@Override
+	public String toString() {
+		return "RequeteSK85 [idEmetteur=" + idEmetteur + ", isJeton=" + isJeton + ", jeton=" + jeton + ", dem=" + dem
+				+ "]";
+	}
+
+
 	public RequeteSK85(int idEmetteur, int dem) {
 		super();
 		this.idEmetteur = idEmetteur;

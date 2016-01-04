@@ -38,9 +38,12 @@ public class ProcessusExclusionMutuelleRA81 extends ProcessusExclusionMutuelle {
     afficher("demarrage "+this.getNom());
 
     for (int i = 0; i < NBDEMANDE; i++) {
-    	afficher(getNom()+" demande de SC n: "+i);
+    	
 		randomSleep();
+		armerMinuteur(20000, "ERREUR DE VIVACITE");
+		afficher(getNom()+" demande de SC n: "+i);
 		entrer();
+		
 	}
 
     afficher("terminaison "+this.getNom());
@@ -73,6 +76,8 @@ public class ProcessusExclusionMutuelleRA81 extends ProcessusExclusionMutuelle {
    * 
    */
   protected synchronized void sortir() {
+	  desarmerMinuteur();
+	  decrPEnSC();
 	List<Requete> requetes = new ArrayList<Requete>(this.fa);
     for (Requete r : requetes) {
     	this.horloge ++;
@@ -96,6 +101,7 @@ public class ProcessusExclusionMutuelleRA81 extends ProcessusExclusionMutuelle {
     if (r.isAcq()) {
     	this.nAcq ++;
     	if (this.nAcq == nbProcessus) {
+    		addPEnSC();
     		afficher(getName()+" entre en SC");
     		randomSleep();
     		sortir();
