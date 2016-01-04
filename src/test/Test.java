@@ -2,6 +2,7 @@ package test;
 
 import infrastructure.Groupe;
 import application.ProcessusExclusionMutuelle;
+import application.ProcessusExclusionMutuelleRA81;
 
 /**
  * Programme de test.
@@ -19,15 +20,16 @@ public class Test {
     g.ajouter("P3");
 
     // créer et lancer le/les processus du système réparti
-    ProcessusExclusionMutuelle p1 = new ProcessusExclusionMutuelle("P1",
+    ProcessusExclusionMutuelleRA81 p1 = new ProcessusExclusionMutuelleRA81("P1",
             "Groupe");
-    ProcessusExclusionMutuelle p2 = new ProcessusExclusionMutuelle("P2",
+    ProcessusExclusionMutuelleRA81 p2 = new ProcessusExclusionMutuelleRA81("P2",
             "Groupe");
-    ProcessusExclusionMutuelle p3 = new ProcessusExclusionMutuelle("P3",
+    ProcessusExclusionMutuelleRA81 p3 = new ProcessusExclusionMutuelleRA81("P3",
             "Groupe");
 
     // ATTENTION : ajuster la valeur ci-dessous pour couvrir la durée du test
-    Thread.sleep(10000);
+    Thread.sleep(30000);
+    System.out.println("Fin !");
   }
 
 }

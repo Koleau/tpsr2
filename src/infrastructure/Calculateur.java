@@ -211,9 +211,10 @@ public abstract class Calculateur extends Thread {
 			throw new IllegalStateException();
 		}
 		List<String> servs = groupe.getMembres();
-		servs.remove(this.getNom());
 		for (String serv : servs) {
-			envoyer(serv, m);
+			if (!serv.equals(getNom())) {
+				envoyer(serv, m);
+			}
 		}
 	} catch (IllegalArgumentException e) {
 		afficher("Groupe "+d+" non existant.");
