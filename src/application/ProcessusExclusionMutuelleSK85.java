@@ -2,7 +2,6 @@ package application;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import infrastructure.Message;
 
@@ -49,12 +48,19 @@ public class ProcessusExclusionMutuelleSK85 extends ProcessusExclusionMutuelle {
 
 
 	    afficher("demarrage "+this.getNom());
-	    
-	    for (int i = 0; i < NBDEMANDE; i++) {
+		entrer();
+		sortir();
+
+		entrer();
+		sortir();
+
+		entrer();
+		sortir();
+	    /*for (int i = 0; i < NBDEMANDE; i++) {
 			randomSleep();
 			afficher(getNom()+" demande de SC n: "+i);
 			entrer();
-		}
+		}*/
 
 	    afficher("terminaison "+this.getNom());
 
@@ -81,7 +87,7 @@ public class ProcessusExclusionMutuelleSK85 extends ProcessusExclusionMutuelle {
 	    	addPEnSC();
 	    	afficher(getNom()+" est entre en SC");
 	    	randomSleep();
-	    	sortir();
+	    	debloquer();
 	    }
 	  }
 
@@ -111,8 +117,6 @@ public class ProcessusExclusionMutuelleSK85 extends ProcessusExclusionMutuelle {
 	    	RequeteSK85 r = new RequeteSK85(this.id, this.jeton);
 	    	envoyer("P"+suiv, new Message(r));
 	    }
-	    
-	    debloquer();
 	  }
 
 	  //
@@ -135,17 +139,16 @@ public class ProcessusExclusionMutuelleSK85 extends ProcessusExclusionMutuelle {
 	    	this.enSC = true;
 	    	afficher(getNom()+" est entre en SC");
 	    	randomSleep();
-	    	sortir();
+	    	debloquer();
 	    }
 	  }
 	  
 	  private void randomSleep() {
-		Random rand = new Random();
-		try {
-			Thread.sleep(rand.nextInt(3000));
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		  try {
+				Thread.sleep(1500);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 	  }
 	  
 

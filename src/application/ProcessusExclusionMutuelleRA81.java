@@ -2,7 +2,6 @@ package application;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import infrastructure.Message;
 
@@ -88,7 +87,7 @@ public class ProcessusExclusionMutuelleRA81 extends ProcessusExclusionMutuelle {
     this.reqLoc = null;
     this.nAcq = 0;
     debloquer();
-    afficher(getName()+" sort en SC");
+    afficher(getNom()+" sort en SC");
   }
 
   //
@@ -102,7 +101,7 @@ public class ProcessusExclusionMutuelleRA81 extends ProcessusExclusionMutuelle {
     	this.nAcq ++;
     	if (this.nAcq == nbProcessus) {
     		addPEnSC();
-    		afficher(getName()+" entre en SC");
+    		afficher(getNom()+" entre en SC");
     		randomSleep();
     		sortir();
     	}
@@ -119,9 +118,8 @@ public class ProcessusExclusionMutuelleRA81 extends ProcessusExclusionMutuelle {
   }
   
   private void randomSleep() {
-	Random rand = new Random();
 	try {
-		Thread.sleep(rand.nextInt(3000));
+		Thread.sleep(1500);
 	} catch (InterruptedException e) {
 		e.printStackTrace();
 	}

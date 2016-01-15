@@ -156,7 +156,8 @@ public abstract class Calculateur extends Thread {
     Calculateur d = toCalculateur(n);
     m.setEmetteur(nom);
     m.setDestinataire(n);
-    long l = Reseau.latence(this.position, d.position);
+    //long l = Reseau.latence(this.position, d.position);
+    long l = 100;
     afficher("envoi     " + m + " (latence=" + l + "ms)");
     m = (Message) new Serialisation(m).copie();
     ordonnanceur.schedule(new Envoi(m, d), l);
